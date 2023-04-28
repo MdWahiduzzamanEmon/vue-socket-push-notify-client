@@ -31,8 +31,8 @@ function notifyMe(data) {
   } else if (Notification.permission === "granted") {
     // Check whether notification permissions have already been granted;
     // if so, create a notification
-    const notification = new Notification(data.status, {
-      body: data.id,
+    const notification = new Notification(data.projectName, {
+      body: JSON.parse(data.payload).secret,
     });
 
     // …
@@ -41,8 +41,8 @@ function notifyMe(data) {
     Notification.requestPermission().then((permission) => {
       // If the user accepts, let's create a notification
       if (permission === "granted") {
-        const notification = new Notification(data.status, {
-          body: data.id,
+        const notification = new Notification(data.projectName, {
+          body: JSON.parse(data.payload).secret,
         });
         // …
       }
@@ -57,16 +57,16 @@ socket.on("connect", () => {
   state.connected = true;
   if (socket.id) {
     state.data = socket;
-    socket.emit("subscribe", "test");
+    // socket.emit("subscribe", "test");
   }
 });
 
 socket.on("response", (data) => {
   // Response from server
-  console.log(JSON.parse(data));
+  console.log(JSON.parse(data.payload));
 
   //notification
-  notifyMe(JSON.parse(data));
+  notifyMe(data);
 });
 
 socket.on("disconnect", () => {

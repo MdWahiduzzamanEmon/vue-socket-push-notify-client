@@ -5,3 +5,15 @@ import HelloWorld from "./components/HelloWorld.vue";
 <template>
   <HelloWorld msg="Vite + Vue" />
 </template>
+
+<style>
+body {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  
+}
+</style>
