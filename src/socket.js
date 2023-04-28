@@ -4,6 +4,7 @@ import { io } from "socket.io-client";
 export const state = reactive({
   connected: false,
   data: null,
+  responseData: null,
 });
 
 // "undefined" means the URL will be computed from the `window.location` object
@@ -32,7 +33,7 @@ function notifyMe(data) {
     // Check whether notification permissions have already been granted;
     // if so, create a notification
     const notification = new Notification(data.projectName, {
-      body: JSON.parse(data.payload).secret,
+      body: JSON.parse(data.payload).secret + " : " + "Id-" + data.userId,
     });
 
     // …
@@ -42,7 +43,7 @@ function notifyMe(data) {
       // If the user accepts, let's create a notification
       if (permission === "granted") {
         const notification = new Notification(data.projectName, {
-          body: JSON.parse(data.payload).secret,
+          body: JSON.parse(data.payload).secret + " : " + "Id-" + data.userId,
         });
         // …
       }
@@ -63,8 +64,8 @@ socket.on("connect", () => {
 
 socket.on("response", (data) => {
   // Response from server
-  console.log(JSON.parse(data.payload));
-
+  console.log(data);
+  state.responseData = data;
   //notification
   notifyMe(data);
 });

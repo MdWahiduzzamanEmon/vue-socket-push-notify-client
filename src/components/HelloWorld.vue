@@ -1,6 +1,9 @@
 <template>
   <p>State: {{ JSON.stringify(state.data?.id) }}</p>
+  <p>Project name: {{ JSON.stringify(state.responseData) }}</p>
   <input type="text" v-model="projectName" placeholder="Project name" />
+  <input type="text" v-model="userId" placeholder="User id" />
+  <!-- <input type="text" v-model="isAll" placeholder="Is all" /> -->
   <button @click="handleSetProejctSubscribe">Create project</button>
 </template>
 
@@ -12,7 +15,7 @@ import { storeToRefs } from "pinia";
 
 const notifyStore = useNotifyStore();
 
-const { projectName } = storeToRefs(notifyStore);
+const { projectName, userId,isAll } = storeToRefs(notifyStore);
 const { handleSetProejctSubscribe } = notifyStore;
 
 import { onMounted } from "vue";
@@ -40,8 +43,11 @@ button {
 }
 
 input {
-  padding: 15px 32px;
-  font-size: 16px;
+  padding: 10px;
+  margin: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
 }
 
 </style>
