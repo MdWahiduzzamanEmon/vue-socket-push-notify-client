@@ -9,7 +9,7 @@ export const useNotifyStore = defineStore("notify", () => {
 
   const handleSetProejctSubscribe = () => {
     const data = {
-      projectName: projectName.value,
+      projectName: projectName.value, 
       userId: userId.value,
       // sendProposal: isAll.value,
     };
